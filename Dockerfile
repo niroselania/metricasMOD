@@ -6,7 +6,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY server.py ventas_processor.py index.html ./
+COPY server.py auth.py ventas_processor.py telegram_bot.py index.html login.html ./
 
 ENV APP_DIR=/app \
     DATA_DIR=/data \
