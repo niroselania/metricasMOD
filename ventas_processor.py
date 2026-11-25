@@ -12,8 +12,7 @@ from collections import defaultdict
 
 from openpyxl import load_workbook
 
-CANALES = ["RETIRO", "BARILOCHE", "E-COMMERCE", "MAYORISTA"]  # siempre presentes
-NO_CANAL = {"RETAIL", "TOTALES", "TOTAL"}  # filas de subtotal de la hoja resumen
+CANALES = ["RETIRO", "BARILOCHE", "E-COMMERCE", "MAYORISTA"]
 MESES = {"ENE": 1, "FEB": 2, "MAR": 3, "ABR": 4, "MAY": 5, "JUN": 6, "JUL": 7,
          "AGO": 8, "SEP": 9, "SEPT": 9, "OCT": 10, "NOV": 11, "DIC": 12}
 NOMBRES = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
@@ -63,7 +62,7 @@ def _read_month(ws_db, ws_sum, code):
         if not tienda or not isinstance(fecha, (dt.datetime, dt.date)):
             continue
         tienda = str(tienda).strip().upper()
-        if tienda in NO_CANAL or fecha.month != month:
+        if tienda not in CANALES or fecha.month != month:
             continue
         year = year or fecha.year
         k = (tienda, fecha.day)
@@ -79,10 +78,8 @@ def _read_month(ws_db, ws_sum, code):
         return None
     days = calendar.monthrange(year, month)[1]
     fct = _read_fct(ws_sum) if ws_sum is not None else {}
-    # Canales fijos + cualquier tienda extra que aparezca en el detalle o en la hoja (ej. POP UP)
-    extras = sorted(({k[0] for k in day} | set(fct)) - set(CANALES) - NO_CANAL)
     canales = {}
-    for c in CANALES + extras:
+    for c in CANALES:
         canales[c] = {
             "fct": fct.get(c, {}).get("fct", 0),
             "fctU": fct.get(c, {}).get("fctU", 0),
@@ -96,7 +93,6 @@ def _read_month(ws_db, ws_sum, code):
 
 
 def build_payload(path, filename):
-    """Procesa la planilla. Cada mes guarda de qué archivo salió para poder combinar cargas."""
     wb = load_workbook(path, read_only=True, data_only=True)
     try:
         names = {n.strip().upper(): n for n in wb.sheetnames}
@@ -109,8 +105,6 @@ def build_payload(path, filename):
             ws_sum = wb[names[code]] if code in names else None
             m = _read_month(wb[real], ws_sum, code)
             if m:
-                m["archivo"] = filename
-                m["actualizado"] = dt.datetime.now().astimezone().isoformat(timespec="seconds")
                 meses[f"{m['year']}-{m['month']:02d}"] = m
     finally:
         wb.close()
