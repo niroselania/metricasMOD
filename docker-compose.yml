@@ -1,0 +1,29 @@
+services:
+  ventas-dashboard:
+    build: .
+    image: ventas-dashboard:3.0.0
+    pull_policy: build        # en Portainer: reconstruye la imagen en cada redeploy
+    container_name: ventas-dashboard
+    restart: unless-stopped
+    ports:
+      - "8086:8000"           # 8085 ya lo usa el buscador de stock
+    volumes:
+      - ventas-data:/data     # acá queda guardada la última planilla procesada
+    environment:
+      HISTORY_MAX: "30"
+      TZ: America/Argentina/Buenos_Aires
+      # Usuarios del sitio (Portainer > Stack > Environment variables), formato:
+      #   usuario:clave:admin, otro:clave2
+      # ":admin" = puede subir planillas. Sin usuarios nadie puede ingresar.
+      DASH_USERS: ${DASH_USERS:-}
+      SESSION_HOURS: ${SESSION_HOURS:-12}
+      # Opcional: además del usuario admin, pedir un código al subir planillas
+      UPLOAD_TOKEN: ${UPLOAD_TOKEN:-}
+      # Bot de Telegram (opcional). Usá un bot DISTINTO al del buscador de stock.
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_ALLOWED_CHATS: ${TELEGRAM_ALLOWED_CHATS:-}
+      # Quién recibe el aviso de planilla nueva (vacío = los TELEGRAM_ALLOWED_CHATS)
+      TELEGRAM_NOTIFY_CHATS: ${TELEGRAM_NOTIFY_CHATS:-}
+
+volumes:
+  ventas-data:

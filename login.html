@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#140d09">
+<meta name="robots" content="noindex">
+<title>Ingresar · Ventas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff8a4c'/%3E%3Cstop offset='1' stop-color='%23ff4d2e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 44 L30 22 L36 34 L42 26 L48 44Z' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{
+ --ink:#f6f1ec;--muted:rgba(246,241,236,.62);--dim:rgba(246,241,236,.4);
+ --accent:#ff6a3d;--accent-2:#ff4d2e;--red:#ff7a85;
+ --glass:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05) 45%,rgba(255,255,255,.08));
+ --font:"SF Pro Display","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#120c08;overflow:hidden;-webkit-font-smoothing:antialiased}
+/* Fondo "living cálido" desenfocado, en CSS puro */
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden;
+ background:
+  radial-gradient(60% 50% at 18% 28%,rgba(255,190,130,.55),transparent 60%),
+  radial-gradient(45% 40% at 82% 22%,rgba(255,226,190,.35),transparent 62%),
+  radial-gradient(70% 45% at 50% 100%,rgba(120,72,40,.85),transparent 70%),
+  radial-gradient(40% 35% at 88% 78%,rgba(255,120,60,.35),transparent 65%),
+  linear-gradient(180deg,#3a2a20 0%,#241811 55%,#140d09 100%)}
+.scene i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:float 22s ease-in-out infinite alternate}
+.scene i:nth-child(1){width:42vw;height:42vw;left:-8vw;top:8vh;background:#e9a46c}
+.scene i:nth-child(2){width:30vw;height:30vw;right:-4vw;top:-6vh;background:#f5d3a8;animation-duration:28s}
+.scene i:nth-child(3){width:36vw;height:24vw;left:30vw;bottom:-10vh;background:#8a4a2a;animation-duration:26s}
+.scene i:nth-child(4){width:18vw;height:18vw;right:12vw;bottom:14vh;background:#ff7a3d;opacity:.35;animation-duration:19s}
+/* "ventana" y "sillón" sugeridos, muy desenfocados */
+.scene b{position:absolute;filter:blur(28px);opacity:.35}
+.scene b.win{left:8vw;top:10vh;width:30vw;height:46vh;border-radius:18px;background:linear-gradient(180deg,#ffe3bf,#e2a676)}
+.scene b.sofa{left:22vw;right:22vw;bottom:12vh;height:18vh;border-radius:40px;background:#5a4436;opacity:.55}
+@keyframes float{to{transform:translate3d(4vw,-3vh,0) scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.scene i{animation:none}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+main{position:relative;z-index:2;min-height:100%;display:grid;place-items:center;padding:24px}
+.card{position:relative;width:min(400px,100%);padding:34px 30px 26px;border-radius:30px;
+ background:var(--glass);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);
+ border:1px solid rgba(255,255,255,.2);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 30px rgba(255,255,255,.04),0 30px 80px rgba(0,0,0,.45);
+ animation:in .7s cubic-bezier(.2,.8,.2,1)}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+ background:linear-gradient(140deg,rgba(255,255,255,.7),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(255,180,140,.45));
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+@keyframes in{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.logo{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;margin-bottom:18px;
+ background:linear-gradient(145deg,#ff8a4c,#ff4d2e);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 30px rgba(255,90,50,.45)}
+h1{margin:0;font-size:26px;font-weight:650;letter-spacing:-.02em}
+.sub{margin:6px 0 24px;color:var(--muted);font-size:14px}
+label{display:block;font-size:12px;color:var(--muted);margin:0 0 7px 4px;letter-spacing:.02em}
+.field{position:relative;margin-bottom:16px}
+.field svg.ic{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.55;pointer-events:none}
+input[type=text],input[type=password]{width:100%;font:inherit;font-size:15px;color:var(--ink);padding:14px 46px 14px 44px;border-radius:16px;outline:none;
+ background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 2px rgba(0,0,0,.25);transition:.2s}
+input::placeholder{color:var(--dim)}
+input:focus{border-color:rgba(255,150,110,.7);background:rgba(255,255,255,.11);box-shadow:0 0 0 4px rgba(255,106,61,.18),inset 0 1px 2px rgba(0,0,0,.25)}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--muted);cursor:pointer;padding:8px;border-radius:10px}
+.eye:hover{color:var(--ink);background:rgba(255,255,255,.08)}
+.row{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 22px;font-size:13px;color:var(--muted)}
+.check{display:flex;gap:9px;align-items:center;cursor:pointer;margin:0;font-size:13px}
+.check input{appearance:none;width:18px;height:18px;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);display:grid;place-items:center;cursor:pointer;margin:0}
+.check input:checked{background:linear-gradient(145deg,#ff8a4c,#ff4d2e);border-color:transparent}
+.check input:checked::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+button.go{width:100%;font:inherit;font-weight:650;font-size:15px;color:#fff;padding:14px;border:0;border-radius:16px;cursor:pointer;position:relative;overflow:hidden;
+ background:linear-gradient(145deg,#ff8a4c,#ff4d2e);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 12px 30px rgba(255,80,40,.4);transition:transform .15s,filter .2s}
+button.go:hover{filter:brightness(1.06)}
+button.go:active{transform:scale(.985)}
+button.go[disabled]{filter:saturate(.6) brightness(.9);cursor:wait}
+button.go::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-100%)}
+button.go:hover::after{transition:transform .9s;transform:translateX(100%)}
+.err{min-height:20px;margin:-8px 2px 12px;color:var(--red);font-size:13px}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.foot{margin-top:20px;text-align:center;font-size:12px;color:var(--dim)}
+.lock{display:inline-flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<div class="scene" aria-hidden="true"><b class="win"></b><b class="sofa"></b><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+<main>
+ <form class="card" id="f" autocomplete="on" novalidate>
+  <div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+  <h1 id="hi">Bienvenido</h1>
+  <p class="sub">Ingresá para ver el tablero de ventas</p>
+  <label for="u">Usuario</label>
+  <div class="field">
+   <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+   <input type="text" id="u" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="tu usuario" required autofocus>
+  </div>
+  <label for="p">Contraseña</label>
+  <div class="field">
+   <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+   <input type="password" id="p" name="password" autocomplete="current-password" placeholder="••••••••" required>
+   <button type="button" class="eye" id="eye" aria-label="Mostrar contraseña"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
+  <div class="row"><label class="check"><input type="checkbox" id="r"> Recordarme en este equipo</label></div>
+  <div class="err" id="err" role="alert"></div>
+  <button class="go" id="go" type="submit">Ingresar</button>
+  <div class="foot"><span class="lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Ventas · Centro de control</span></div>
+ </form>
+</main>
+<script>
+const f=document.getElementById("f"),err=document.getElementById("err"),go=document.getElementById("go"),p=document.getElementById("p");
+const h=new Date().getHours();document.getElementById("hi").textContent=h<12?"Buen día":h<20?"Buenas tardes":"Buenas noches";
+document.getElementById("eye").addEventListener("click",()=>{p.type=p.type==="password"?"text":"password";p.focus()});
+f.addEventListener("submit",async e=>{
+ e.preventDefault();err.textContent="";
+ const user=document.getElementById("u").value.trim(),password=p.value;
+ if(!user||!password){err.textContent="Completá usuario y contraseña.";return}
+ go.disabled=true;go.textContent="Verificando…";
+ try{
+  const r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",
+   body:JSON.stringify({user,password,remember:document.getElementById("r").checked})});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok){go.textContent="¡Listo!";location.replace("/");return}
+  err.textContent=j.error||"No se pudo ingresar.";
+ }catch(x){err.textContent="Sin conexión con el servidor."}
+ go.disabled=false;go.textContent="Ingresar";p.value="";p.focus();
+ f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake");
+});
+</script>
+</body>
+</html>
