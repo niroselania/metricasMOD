@@ -1,4 +1,7 @@
-# Ventas · Centro de control (v3.0.0)
+# Ventas · Centro de control (v3.0.1)
+
+## Novedades v3.0.1
+- Paleta azul noche: mejor contraste en porcentajes, etiquetas de estado y textos sobre las tarjetas de vidrio.
 
 ## Novedades v3.0.0
 - **Ingreso con usuario y contraseña** antes de ver cualquier dato (también protege `/api/data`).
